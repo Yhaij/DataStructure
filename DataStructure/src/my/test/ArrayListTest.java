@@ -1,7 +1,5 @@
 package my.test;
 
-import java.util.Iterator;
-
 import my.util.ArrayList;
 import my.util.ListIterator;
 

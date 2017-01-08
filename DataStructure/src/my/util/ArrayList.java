@@ -9,7 +9,7 @@ public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements L
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int DEFAUL_CAPCITY = 10;
+	private static final int DEFAUL_CAPCITY = 1;
 	private static final int NOT_FOUND = -1;
 	private AnyType[] item;
 	private int theSize; 
