@@ -1,7 +1,5 @@
 package my.test;
 
-import java.util.Iterator;
-
 import my.util.ArrayList;
 import my.util.ListIterator;
 
@@ -29,9 +27,9 @@ public class ArrayListTest {
 				itr.remove();
 			}
 		}
-		/*for(String obj:list){
+		for(String obj:list){
 			System.out.println(obj);
-		}*/
+		}
 		//System.out.println(list.toString());
 	}
 }
