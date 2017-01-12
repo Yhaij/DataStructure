@@ -1,7 +1,8 @@
 package my.test;
 
+import java.util.Iterator;
+
 import my.util.ArrayList;
-import my.util.ListIterator;
 
 public class ArrayListTest {
 	public static void main(String[] args) {
@@ -11,14 +12,16 @@ public class ArrayListTest {
 		list.add("array");
 		list.add("list");
 		System.out.println(list.contains("hello"));
-		//Iterator<String> itr = list.iterator();
-		/*while (itr.hasNext()){
-			if(itr.next().equals("word")){
+		Iterator<String> itr = list.iterator();
+		while (itr.hasNext()){
+			/*if(itr.next().equals("word")){
 				itr.remove();
-			}
-			//itr.remove();
-		}*/
-		ListIterator<String> itr = list.listIterator(list.size());
+			}*/
+			itr.next();
+			itr.remove();
+		}
+		System.out.println(list.size());
+		/*ListIterator<String> itr = list.listIterator(list.size());
 		while(itr.hasPrevious()){
 			String remaveItem = (String) itr.previous();
 			System.out.println(remaveItem);
@@ -29,7 +32,7 @@ public class ArrayListTest {
 		}
 		for(String obj:list){
 			System.out.println(obj);
-		}
+		}*/
 		//System.out.println(list.toString());
 	}
 }

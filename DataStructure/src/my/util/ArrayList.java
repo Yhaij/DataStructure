@@ -227,6 +227,28 @@ public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements L
 			isNext = 0;
 			return ArrayList.this.item[--current];
 		}
+		@Override
+		public void set(AnyType x) {
+			// TODO Auto-generated method stub
+			if(exceptModCount != modCount)
+				throw new ConcurrentModificationException();
+			if(isNext == 1)
+				ArrayList.this.set(current-1,x);
+			else if(isNext == 0)
+				ArrayList.this.set(current,x);
+			else 
+				throw new IllegalStateException();
+		}
+		@Override
+		public void add(AnyType x) {
+			// TODO Auto-generated method stub
+			if(exceptModCount != modCount)
+				throw new ConcurrentModificationException();
+			if(isNext == 1)
+				ArrayList.this.set(current-1,x);
+			else
+				ArrayList.this.set(current,x);
+		}
 		
 	}
 }
