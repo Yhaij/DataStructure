@@ -17,6 +17,7 @@ public class ArrayListTest {
 			/*if(itr.next().equals("word")){
 				itr.remove();
 			}*/
+			System.out.println(list.toString());
 			itr.next();
 			itr.remove();
 		}

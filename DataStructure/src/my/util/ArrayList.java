@@ -101,13 +101,17 @@ public class ArrayList<AnyType> extends AbstractCollection<AnyType> implements L
 	public boolean add(int idx,AnyType x){
 		if(idx <0 || idx >size())
 			throw new IndexOutOfBoundsException();
-		if(theSize ==item.length){
+		int oldCapacity = item.length;
+		if(theSize ==oldCapacity){
 			@SuppressWarnings("unchecked")
-			AnyType[] arr = (AnyType[])new Object[item.length*2+1];
-			for(int i = 0;i<item.length;i++){
+			AnyType[] arr = (AnyType[])new Object[oldCapacity*2+1];
+			for(int i = 0;i<oldCapacity;i++){
 				arr[i] = item[i];
 			}
 			item = arr;
+/*			//Object[] oldData = item;               ????????????
+ 			int newCapacity = (oldCapacity*3)/2+1;
+			item = Arrays.copyOf(item, newCapacity);*/
 		}
 		for(int i = size();i<idx;i++){
 			item[i] = item[i-1];
