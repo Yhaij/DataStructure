@@ -74,7 +74,7 @@ class BinaryNode<AnyType>{
 			this.getLeft().PrintOrder();
 			this.getRight().PrintOrder();
 		}*/
-		System.out.println(this.getElment());
+		System.out.print(this.getElment()+" ");
 		if(this.getLeft() != null)
 			this.getLeft().PrintPreOrder();
 		if(this.getRight() != null)
@@ -82,16 +82,16 @@ class BinaryNode<AnyType>{
 	}
 	public void PrintInOrder(){
 		if(this.getLeft() != null)
-			this.getLeft().PrintPreOrder();
-		System.out.println(this.getElment());
+			this.getLeft().PrintInOrder();
+		System.out.print(this.getElment()+" ");
 		if(this.getRight() != null)
-			this.getRight().PrintPreOrder();
+			this.getRight().PrintInOrder();
 	}
 	public void PrintPosOrder(){
 		if(this.getLeft() != null)
-			this.getLeft().PrintPreOrder();
+			this.getLeft().PrintPosOrder();
 		if(this.getRight() != null)
-			this.getRight().PrintPreOrder();
-		System.out.println(this.getElment());
+			this.getRight().PrintPosOrder();
+		System.out.print(this.getElment()+" ");
 	}
 }
