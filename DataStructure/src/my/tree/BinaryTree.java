@@ -22,15 +22,15 @@ public class BinaryTree<AnyType> implements Iterable<AnyType>{
 	public int height(){
 		return BinaryNode.height(root);
 	}
-	public void PrintPreOrder(){
+	public void printPreOrder(){
 		if(root != null)
 			root.PrintPreOrder();
 	}
-	public void PrintInOrder(){
+	public void printInOrder(){
 		if(root != null)
 			root.PrintInOrder();
 	}
-	public void PrintPosDrder(){
+	public void printPosOrder(){
 		if(root != null)
 			root.PrintPosOrder();
 	}
@@ -53,13 +53,16 @@ public class BinaryTree<AnyType> implements Iterable<AnyType>{
 		return root == null;
 	}
 	public Iterator<AnyType> iterator(){              //增强for循环默认为中序遍历
-		return inOrdeerIterator();
+		return posOrderIterator();
 	}
-	public Iterator<AnyType> inOrdeerIterator(){
+	public Iterator<AnyType> inOrderIterator(){
 		return new InOrder();
 	}
-	public Iterator<AnyType> preOrdeerIterator(){
+	public Iterator<AnyType> preOrderIterator(){
 		return new PreOrder();
+	}
+	public Iterator<AnyType> posOrderIterator(){
+		return new PosOrder();
 	}
 	private class InOrder extends TreeIterator<AnyType>{
 		BinaryNode<AnyType> p ;
@@ -67,6 +70,7 @@ public class BinaryTree<AnyType> implements Iterable<AnyType>{
 		public InOrder() {
 			// TODO Auto-generated constructor stub
 			s = new ArrayStack<BinaryNode<AnyType>>();
+			s.clear();
 			current = null;
 			p = root;
 			advance();
@@ -94,6 +98,7 @@ public class BinaryTree<AnyType> implements Iterable<AnyType>{
 		public PreOrder() {
 			// TODO Auto-generated constructor stub
 			s = new ArrayStack<BinaryNode<AnyType>>();
+			s.clear();
 			current = root;
 			if(current != null){
 				s.push(current);
@@ -126,5 +131,60 @@ public class BinaryTree<AnyType> implements Iterable<AnyType>{
 				current = null;
 			}
 		}
+	}
+	private class PosOrder extends TreeIterator<AnyType>{
+		private Stack<StNode> s;
+		protected class StNode{
+			private BinaryNode<AnyType> node;
+			private int timePop;
+			public StNode(BinaryNode<AnyType> node) {
+				// TODO Auto-generated constructor stub
+				this.node = node;
+				this.timePop = 0;
+			}
+		}
+		public PosOrder() {
+			// TODO Auto-generated constructor stub
+			s = new ArrayStack<StNode>();
+			s.clear();
+			current = null;
+			if(root != null){
+				s.push(new StNode(root));
+			}
+			advance();
+		}
+		@Override
+		protected void advance() {
+			// TODO Auto-generated method stub
+			if(s.isEmpty()){
+				current = null;
+				return ;
+			}
+			StNode stNode;
+			int timePop;
+			for(;;){
+				stNode = s.Pop();
+				timePop = ++stNode.timePop;
+				if(timePop == 3){
+					current = stNode.node;
+					return ;
+				}
+				if(timePop == 1){
+					s.push(stNode);
+					if(stNode.node.getLeft() != null){
+						//s.push(stNode);   不能写在内部，若其左孩子没有也需要将该节点压栈
+						s.push(new StNode(stNode.node.getLeft()));
+					}
+				}
+				if(timePop == 2){
+					s.push(stNode);
+					if(stNode.node.getRight() != null){
+						//s.push(stNode);
+						s.push(new StNode(stNode.node.getRight()));
+					}
+				}
+			}
+		}
+		
 	}
 }
