@@ -4,12 +4,12 @@ import java.util.DuplicateFormatFlagsException;
 import java.util.NoSuchElementException;
 
 public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
-	private BinaryNode root;
+	protected BinaryNode root;
 
-	private class BinaryNode {
-		private AnyType element;
-		private BinaryNode left;
-		private BinaryNode right;
+	protected class BinaryNode {
+		AnyType element;
+		BinaryNode left;
+		BinaryNode right;
 
 		public BinaryNode(AnyType element) {
 			// TODO Auto-generated constructor stub
@@ -59,7 +59,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 		return t == null ? null : t.element;
 	}
 
-	private void insert(BinaryNode t, AnyType x) {
+	protected void insert(BinaryNode t, AnyType x) {
 		if (t != null) {
 			if (t.element.compareTo(x) < 0) {
 				insert(t.left, x);
@@ -84,7 +84,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 		return null; // Not Found
 	}
 
-	private BinaryNode findMin(BinaryNode t) {
+	protected BinaryNode findMin(BinaryNode t) {
 		if (t != null)
 			while (t.left != null) {
 				t = t.left;
@@ -100,7 +100,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 		return t;
 	}
 
-	private BinaryNode remove(BinaryNode t, AnyType x) {
+	protected BinaryNode remove(BinaryNode t, AnyType x) {
 		if (t != null)
 			if (t.element.compareTo(x) < 0) {
 				t.left = remove(t.left, x);
@@ -119,7 +119,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 			throw new NoSuchElementException();
 	}
 
-	private BinaryNode removeMin(BinaryNode t) {
+	protected BinaryNode removeMin(BinaryNode t) {
 		if (t != null) {
 			if (t.left != null) {
 				t.left = removeMin(t.left);
