@@ -31,9 +31,9 @@ public class BinarySearchTreeWithRank<AnyType extends Comparable<? super AnyType
 		if(tt == null){
 			tt = new BinaryNode(x);
 		}else{
-			if(tt.element.compareTo(x) < 0){
+			if(x.compareTo(tt.element) < 0){
 				tt.left = insert(x,tt.left);
-			}else if(tt.element.compareTo(x) > 0){
+			}else if(x.compareTo(tt.element) > 0){
 				tt.right = insert(x,tt.right);
 			}else{
 				throw new DuplicateFormatFlagsException(x.toString());
@@ -59,9 +59,9 @@ public class BinarySearchTreeWithRank<AnyType extends Comparable<? super AnyType
 	protected BinaryNode remove(BinaryNode tt,AnyType x){
 		if(tt == null)
 			throw new IllegalArgumentException();
-		if(tt.element.compareTo(x) <0){
+		if(x.compareTo(tt.element) <0){
 			tt.left = remove(tt.left, x);
-		}else if(tt.element.compareTo(x) >0){
+		}else if(x.compareTo(tt.element) >0){
 			tt.right = remove(tt.right,x);
 		}else if(tt.left != null && tt.right!= null){
 			tt.element = findMin(tt.right).element;

@@ -61,9 +61,9 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 
 	protected void insert(BinaryNode t, AnyType x) {
 		if (t != null) {
-			if (t.element.compareTo(x) < 0) {
+			if (x.compareTo(t.element) < 0) {
 				insert(t.left, x);
-			} else if (t.element.compareTo(x) > 0) {
+			} else if (x.compareTo(t.element) > 0) {
 				insert(t.right, x);
 			} else
 				throw new DuplicateFormatFlagsException(x.toString()); // 插入相同的元素
@@ -74,9 +74,9 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 
 	private BinaryNode find(BinaryNode t, AnyType x) {
 		while (t != null) {
-			if (t.element.compareTo(x) < 0)
+			if (x.compareTo(t.element) < 0)
 				t = t.left;
-			else if (t.element.compareTo(x) > 0) {
+			else if (x.compareTo(t.element) > 0) {
 				t = t.right;
 			} else
 				return t;
@@ -102,10 +102,10 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 
 	protected BinaryNode remove(BinaryNode t, AnyType x) {
 		if (t != null)
-			if (t.element.compareTo(x) < 0) {
+			if (x.compareTo(t.element) < 0) {
 				t.left = remove(t.left, x);
 				return t;
-			} else if (t.element.compareTo(x) > 0) {
+			} else if (x.compareTo(t.element) > 0) {
 				t.right = remove(t.right, x);
 				return t;
 			} else if(t.left != null && t.right != null){
