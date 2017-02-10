@@ -1,5 +1,8 @@
 package my.tree;
 
+/*import my.util.ArrayQueue;
+import my.util.Queue;*/
+
 public class RedBlackTree<AnyType extends Comparable<? super AnyType>> {
 	private static final int BLACK = 1;
 	private static final int RED = 0;
@@ -8,9 +11,10 @@ public class RedBlackTree<AnyType extends Comparable<? super AnyType>> {
 	private RedBlackNode<AnyType> nullNode;
 	
 	//insert 需要用到
-	private RedBlackNode<AnyType> current;
-	private RedBlackNode<AnyType> parent;
-	private RedBlackNode<AnyType> grant;
+	private RedBlackNode<AnyType> current; //当前节点
+	private RedBlackNode<AnyType> parent;  //双亲节点
+	private RedBlackNode<AnyType> grant;  //祖父节点
+	private RedBlackNode<AnyType> great;  //曾祖父节点
 	public RedBlackTree() {
 		// TODO Auto-generated constructor stub
 		nullNode = new RedBlackNode<AnyType>(null);
@@ -35,9 +39,10 @@ public class RedBlackTree<AnyType extends Comparable<? super AnyType>> {
 		}
 	}
 	public void instert(AnyType x){
-		grant = parent = current = head;
+		great = grant = parent = current = head;
 		nullNode.element = x;
 		while(compare(x, current) != 0){
+			great = grant;
 			grant = parent;
 			parent = current;
 			current = compare(x,current)<0?current.left:current.right;
@@ -48,7 +53,7 @@ public class RedBlackTree<AnyType extends Comparable<? super AnyType>> {
 		if(current != nullNode){
 			return ;
 		}
-		current = new RedBlackNode<AnyType>(x);
+		current = new RedBlackNode<AnyType>(x,nullNode,nullNode);
 		current.color = RED;
 		if(compare(x, parent) <0){
 			parent.left = current;
@@ -110,10 +115,22 @@ public class RedBlackTree<AnyType extends Comparable<? super AnyType>> {
 	private void printTree(RedBlackNode<AnyType> t){
 		if(t != nullNode){
 			printTree(t.left);
-			System.out.println(t.element);
+			System.out.print(t.element+" ");
 			printTree(t.right);
 		}
 	}
+/*	private void printTree2(RedBlackNode<AnyType> t){
+		Queue<RedBlackNode<AnyType>> queue = new ArrayQueue<RedBlackNode<AnyType>>();
+		queue.enqueue(t);
+		while(!queue.isEmpty()){
+			t = queue.dequeue();
+			if(t != nullNode){
+				System.out.print(t.element+" ");
+				queue.enqueue(t.left);
+				queue.enqueue(t.right);
+			}
+		}	
+	}*/
 	private int compare(AnyType x,RedBlackNode<AnyType> t){
 		if(t == head){
 			return 1;
@@ -122,7 +139,8 @@ public class RedBlackTree<AnyType extends Comparable<? super AnyType>> {
 	}
 	private void handleReorient(AnyType x){
 		current.color = RED;
-		current.left.color = current.right.color = BLACK;
+		current.left.color = BLACK;
+		current.right.color = BLACK;
 		if(parent.color == RED){
 			grant.color = RED;
 			if(compare(x, grant)<0){
@@ -130,22 +148,35 @@ public class RedBlackTree<AnyType extends Comparable<? super AnyType>> {
 					parent = roteWithLeftChild(grant);
 					parent.color = BLACK;
 					current = parent.left;
+					greatOf(x,parent);
 				}else{
 					current = doubleRoteWithLeftChild(grant);
 					current.color = BLACK;
+					greatOf(x,current);
 				}
 			}else{
 				if(compare(x, parent)>0){
 					parent = roteWithRightChild(grant);
 					parent.color = BLACK;
 					current = parent.right;
+					greatOf(x,parent);
 				}else{
 					current = doubleRoteWithRightChild(grant);
 					current.color = BLACK;
+					greatOf(x,current);
 				}
 			}
 		}
 		head.right.color = BLACK;
+	}
+	/**
+	 *greatOf函数是为了树的连接，因为旋转之后使great的孩子改变，必须重新连接
+	 */
+	private void greatOf(AnyType x,RedBlackNode<AnyType> t){   
+		if(compare(x, great)<0)
+			great.left = t;
+		else
+			great.right = t;
 	}
 	private RedBlackNode<AnyType> roteWithLeftChild(RedBlackNode<AnyType> father){
 		RedBlackNode<AnyType> leftChild = father.left;

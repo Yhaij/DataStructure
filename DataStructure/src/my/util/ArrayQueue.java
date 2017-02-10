@@ -21,7 +21,7 @@ public class ArrayQueue<AnyType> implements Queue<AnyType> {
 		if((rear+1)%theSize == front){
 			AnyType[] oldArray = item;
 			item = (AnyType[])new Object [oldArray.length*2+1];
-			System.out.println(item.length);
+			//System.out.println(item.length);
 			for(int i = 0;i<oldArray.length;i++){
 				item[i] = oldArray[front];
 				front = (front+1)%theSize;
@@ -42,7 +42,7 @@ public class ArrayQueue<AnyType> implements Queue<AnyType> {
 			throw new UnderFlowException("对不起，队列里没有元素");
 		AnyType element = item[front];
 		front = (front+1)%theSize;
-		System.out.println("front"+front);
+		//System.out.println("front"+front);
 		return element;
 	}
 
