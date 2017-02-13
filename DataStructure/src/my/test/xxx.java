@@ -3,7 +3,6 @@ package my.test;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-
 public class xxx {
 	public static void main(String[] args) {
 		LinkedList<Integer> linkList = new LinkedList<Integer>();
@@ -23,7 +22,6 @@ public class xxx {
 			itr.set(100);
 			System.out.println(linkList.toString());
 		}
-		
 		//System.out.println(linkList.size());
 	}
 }
